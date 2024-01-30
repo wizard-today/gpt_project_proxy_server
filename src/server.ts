@@ -1,10 +1,9 @@
 import http from 'http'
 import WebSocket from 'ws'
-import url from 'url'
 import { ActionResponse } from './types'
 
 class TimeLimitError extends Error {
-  static is(error) {
+  static is(error: unknown) {
     return error && typeof error === 'object' && error instanceof TimeLimitError
   }
 }
@@ -96,7 +95,7 @@ export const startServer = () => {
     }
   })
 
-  server.listen(8888, () => {
-    console.log('Server listening on port 8888')
+  server.listen(process.env.PORT ?? 8888, () => {
+    console.log('Server started!')
   })
 }
