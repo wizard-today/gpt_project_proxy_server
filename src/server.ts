@@ -48,12 +48,14 @@ export const startServer = () => {
           return res.writeHead(404).end()
         }
 
+        const url = new URL(req.url, `http://${req.headers.host}`)
+
         const payload = {
           id: ++action_id,
-          action: req.url.slice(1),
+          action: url.pathname.slice(1),
           input: (
             req.method === 'GET'
-              ? Object.fromEntries(new URL(req.url, `http://${req.headers.host}`).searchParams)
+              ? Object.fromEntries(url.searchParams)
               : await parseJsonBody(req)
           ),
         }
