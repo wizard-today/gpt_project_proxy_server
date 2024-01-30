@@ -7,5 +7,6 @@ export type ActionRequest = {
 export type ActionResponse = {
   id: number
   content: unknown
-  json: boolean
+  error?: boolean
+  json?: boolean
 }

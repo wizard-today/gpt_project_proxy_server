@@ -14,6 +14,18 @@ export const startServer = () => {
   const pendingRequests = new Map<number, (response: ActionResponse) => void>()
 
   const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+      res.writeHead(200)
+      res.end()
+      return
+    }
+
+    if (req.url === '/favicon.ico') {
+      res.writeHead(404)
+      res.end()
+      return
+    }
+
     if (req.method === 'GET' && req.url) {
       const parsedUrl = new URL(req.url, `http://${req.headers.host}`)
       const action = parsedUrl.pathname.slice(1)
@@ -38,6 +50,12 @@ export const startServer = () => {
           }, 10000)
         })
           .then(response => {
+            if (response.error) {
+              res.writeHead(500)
+              res.end()
+              return
+            }
+
             res.writeHead(200, {
               'Content-Type': response.json ? 'application/json' : 'text/plain'
             })
