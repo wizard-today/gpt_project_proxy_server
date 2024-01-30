@@ -1,0 +1,10 @@
+{
+  "name": "gpt_project_proxy_server",
+  "description": "HTTP proxy server for connect GPT & WebSocket client",
+  "scripts": {
+    "start": "ts-node src/start.ts"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}
