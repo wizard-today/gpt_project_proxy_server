@@ -1,3 +1,5 @@
 import { startServer } from './server'
 
-startServer()
+startServer().then(() => {
+  console.log('Server is running!')
+})
