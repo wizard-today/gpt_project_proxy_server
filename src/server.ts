@@ -96,6 +96,9 @@ export const startServer = () => {
     const wss = new WebSocket.Server({ noServer: true })
 
     wss.on('connection', socket => {
+      if (activeSocket) {
+        activeSocket.close()
+      }
       activeSocket = socket
 
       socket.on('message', data => {
